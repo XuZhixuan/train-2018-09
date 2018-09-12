@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class UserPolicy extends Policy
 {
     use HandlesAuthorization;
 
@@ -17,6 +17,11 @@ class UserPolicy
     public function __construct()
     {
         //
+    }
+
+    public function show(User $currentUser, User $user)
+    {
+        return $currentUser->id === $user->id;
     }
 
     /**

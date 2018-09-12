@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $name
  * @property string $username
  * @property int $department_id
+ * @property string $role
  * @property \App\Models\Department $department
  * @property int $group_id
  * @property \App\Models\Group $group
@@ -29,7 +30,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'avatar', 'password', 'department_id',
+        'name', 'username', 'email', 'avatar', 'password', 'group_id', 'department_id',
     ];
 
     /**
@@ -64,5 +65,19 @@ class User extends Authenticatable
     public function getAvatarAttribute($avatar)
     {
         return asset('storage/' . $avatar);
+    }
+
+    /**
+     * @param Group $group
+     * @return bool
+     */
+    public function isUserOf(Group $group)
+    {
+        return $this->group_id === $group->id;
+    }
+
+    public function isSuperUser()
+    {
+        return $this->role == 'admin';
     }
 }

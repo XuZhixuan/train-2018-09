@@ -8356,6 +8356,10 @@ body {
   font-family: Hiragino Sans GB, "Hiragino Sans GB", Helvetica, "Microsoft YaHei", Arial,sans-serif;
 }
 
+body a {
+  color: #636b6f;
+}
+
 /* header */
 
 .navbar-static-top {

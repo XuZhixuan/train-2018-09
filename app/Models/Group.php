@@ -26,4 +26,22 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\User');
     }
+
+    /**
+     * @param $ftp_password
+     * @return string
+     */
+    public function getFtpPasswordAttribute($ftp_password)
+    {
+        return decrypt($ftp_password);
+    }
+
+    /**
+     * @param $db_password
+     * @return string
+     */
+    public function getDbPasswordAttribute($db_password)
+    {
+        return decrypt($db_password);
+    }
 }

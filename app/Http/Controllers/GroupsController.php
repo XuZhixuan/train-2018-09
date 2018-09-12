@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Group;
 use App\Http\Requests\GroupRequest;
+use Illuminate\Support\Facades\Auth;
 
 class GroupsController extends Controller
 {
@@ -26,7 +28,7 @@ class GroupsController extends Controller
      */
     public function show(Group $group)
     {
-        return view('group.show', compact('group'));
+        return view('groups.show', compact('group'));
     }
 
     /**
@@ -34,7 +36,11 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        return view('group.create');
+        if (Auth::user()->group) {
+            return redirect()->intended('/')->with('message','您已加入一个小组');
+        }
+        $users = User::all();
+        return view('groups.create', compact('users'));
     }
 
     /**
@@ -43,32 +49,15 @@ class GroupsController extends Controller
      */
     public function store(GroupRequest $request)
     {
-        $group = Group::create($request->all());
-        return redirect()->route('group.show',[$group])->with('success', '小组创建成功！');
-    }
-
-    /**
-     * @param Group $group
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function edit(Group $group)
-    {
-        $this->authorize('update', $group);
-        return view('group.edit'. compact('group'));
-    }
-
-    /**
-     * @param GroupRequest $request
-     * @param Group $group
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function update(GroupRequest $request, Group $group)
-    {
-        $this->authorize('update', $group);
-        $group->update($request->all());
-        return redirect()->intended()->with('success', '更新小组成功！');
+        if (Auth::user()->group) {
+            return redirect()->intended('/')->with('message','您已加入一个小组');
+        }
+        $group = Group::create([
+            'name' => $request->name
+        ]);
+        Auth::user()->update(['group_id' => $group->id]);
+        User::find($request->member_2)->update(['group_id' => $group->id]);
+        return redirect()->route('users.show',[Auth::user()])->with('success', '小组创建成功！');
     }
 
     /**
@@ -78,7 +67,7 @@ class GroupsController extends Controller
      */
     public function destroy(Group $group)
     {
-        $this->authorize('destroy', $group);
+        $this->authorize('delete', $group);
         $group->delete();
         return redirect()->intended('/')->with('success', '小组删除成功');
     }

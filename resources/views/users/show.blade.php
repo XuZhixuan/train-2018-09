@@ -34,8 +34,67 @@
             </div>
             <hr>
             <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>我的小组</h4>
+                </div>
                 <div class="panel-body">
-                    {{--所属小组等信息--}}
+                    @if(Auth::user()->group)
+                        <h4><strong>小组名</strong></h4>
+                        <hr>
+                        <p><a href="{{ Auth::user()->group->domain_name }}">{{ Auth::user()->group->name }}</a></p>
+                        <hr>
+                        @can('show', $user)
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">项目</th>
+                                        <th scope="col">用户名</th>
+                                        <th scope="col">密码</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">FTP</th>
+                                        <td>{{ Auth::user()->group->ftp_username }}</td>
+                                        <td>{{ Auth::user()->group->ftp_password }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Database</th>
+                                        <td>{{ Auth::user()->group->db_username }}</td>
+                                        <td>{{ Auth::user()->group->db_password }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">姓名</th>
+                                        <th scope="col">部门</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(Auth::user()->group->users as $user)
+                                        <tr>
+                                            <th scope="row">{{ $user->id }}</th>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->department->name }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <hr>
+                            <h4>Dangerous Zone</h4>
+                            <form action="{{ route('groups.destroy', Auth::user()->group) }}" method="post">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button class="btn btn-danger">退出小组</button>
+                            </form>
+                        @endcan
+                    @else
+                        <a href="{{ route('groups.create') }}">创建小组</a>
+                    @endif
                 </div>
             </div>
         </div>
