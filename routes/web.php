@@ -12,3 +12,8 @@
 */
 
 Route::get('/','PagesController@root')->name('root');
+
+/** 认证路由 */
+Route::get('login', 'Auth\OAuthLoginController@login')->name('login');
+Route::get('callback', 'Auth\OAuthLoginController@callback')->name('callback');
+Route::post('logout', 'Auth\OAuthLoginController@logout')->name('logout');
