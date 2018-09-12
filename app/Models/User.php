@@ -5,6 +5,20 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ * @package App\Models
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $username
+ * @property int $department_id
+ * @property \App\Models\Department $department
+ * @property int $group_id
+ * @property \App\Models\Group $group
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -15,7 +29,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'username', 'email', 'avatar', 'password', 'department_id',
     ];
 
     /**
@@ -26,4 +40,29 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function group()
+    {
+        return $this->belongsTo('App\Models\Group');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function department()
+    {
+        return $this->belongsTo('App\Models\Department');
+    }
+
+    /**
+     * @param $avatar
+     * @return string
+     */
+    public function getAvatarAttribute($avatar)
+    {
+        return asset('storage/' . $avatar);
+    }
 }

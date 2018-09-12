@@ -17,3 +17,6 @@ Route::get('/','PagesController@root')->name('root');
 Route::get('login', 'Auth\OAuthLoginController@login')->name('login');
 Route::get('callback', 'Auth\OAuthLoginController@callback')->name('callback');
 Route::post('logout', 'Auth\OAuthLoginController@logout')->name('logout');
+
+Route::resource('users', 'UsersController', ['except' => ['create', 'store']]);
+Route::resource('groups', 'GroupsController');

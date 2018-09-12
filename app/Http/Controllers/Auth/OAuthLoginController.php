@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,7 +31,8 @@ class OAuthLoginController extends LoginController
             'response_type' => 'code',
             'scope' => implode(' ', [
                 'info-username.read',
-                'info-name.read'
+                'info-name.read',
+                'info-email.read'
             ])
         ]);
 
@@ -79,6 +81,8 @@ class OAuthLoginController extends LoginController
                 $user = User::create([
                     'name' => $data['name'],
                     'username' => $data['username'],
+                    'email' => $data['email'],
+                    'avatar' => 'avatars/default.jpg',
                     'password' => '*',
                 ]);
             }

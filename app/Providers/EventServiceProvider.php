@@ -27,6 +27,6 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        \App\Models\Group::observe(\App\Observers\GroupObserver::class);
     }
 }
