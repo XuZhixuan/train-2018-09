@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class GroupsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except' => ['index']
+        ]);
+    }
+
     /**
      * Display a listing of the groups.
      *
@@ -18,17 +25,6 @@ class GroupsController extends Controller
     {
         $groups = Group::paginate(10);
         return view('groups.index', compact('groups'));
-    }
-
-    /**
-     * Display the specified group.
-     *
-     * @param Group $group
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Group $group)
-    {
-        return view('groups.show', compact('group'));
     }
 
     /**

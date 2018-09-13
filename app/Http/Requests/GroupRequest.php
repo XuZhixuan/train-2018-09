@@ -24,8 +24,7 @@ class GroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            ''
+            'name' => 'required|alpha_num',
         ];
     }
 }

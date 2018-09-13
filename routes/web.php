@@ -19,5 +19,5 @@ Route::get('callback', 'Auth\OAuthLoginController@callback')->name('callback');
 Route::post('logout', 'Auth\OAuthLoginController@logout')->name('logout');
 
 Route::resource('users', 'UsersController', ['except' => ['create', 'store']]);
-Route::resource('groups', 'GroupsController', ['except' => ['edit', 'update']]);
+Route::resource('groups', 'GroupsController', ['except' => ['show', 'edit', 'update']]);
 Route::resource('departments', 'DepartmentsController', ['only' => ['index','show']]);

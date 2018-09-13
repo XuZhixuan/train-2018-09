@@ -8,6 +8,7 @@ namespace App\Models;
  *
  * @property int $id
  * @property string $name
+ * @property bool $status
  * @property string $domain_name
  * @property string $ftp_username
  * @property string $ftp_password

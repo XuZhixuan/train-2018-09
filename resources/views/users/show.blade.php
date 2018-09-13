@@ -38,7 +38,7 @@
                     <h4>我的小组</h4>
                 </div>
                 <div class="panel-body">
-                    @if(Auth::user()->group)
+                    @if(Auth::check() && Auth::user()->group)
                         <h4><strong>小组名</strong></h4>
                         <hr>
                         <p><a href="{{ Auth::user()->group->domain_name }}">{{ Auth::user()->group->name }}</a></p>
