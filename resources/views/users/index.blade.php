@@ -20,8 +20,8 @@
                     <tr>
                         <th scope="row">{{ $user->id }}</th>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->department->name }}</td>
-                        <td><a href="{{ $user->group->domain_name }}">{{ $user->group->name }}</a></td>
+                        <td>@if($user->departmant) {{ $user->department->name }} @else - @endif</td>
+                        <td>@if($user->group) <a href="{{ $user->group->domain_name }}">{{ $user->group->name }}</a> @else - @endif</td>
                     </tr>
                 @endforeach
                 </tbody>
