@@ -38,14 +38,14 @@
                     <h4>我的小组</h4>
                 </div>
                 <div class="panel-body">
-                    @if(Auth::check() && Auth::user()->group)
+                    @if($user->group)
                         <h4><strong>小组名</strong></h4>
                         <span class="pull-right">
-                            <i @if(Auth::user()->group->status) class="status-active" @else class="status-inactive" @endif></i>
-                            @if(Auth::user()->group->status) Enabled @else Disabled @endif
+                            <i @if($user->group->status) class="status-active" @else class="status-inactive" @endif></i>
+                            @if($user->group->status) Enabled @else Disabled @endif
                         </span>
                         <hr>
-                        <p><a href="{{ Auth::user()->group->domain_name }}">{{ Auth::user()->group->name }}</a></p>
+                        <p><a href="{{ $user->group->domain_name }}">{{ $user->group->name }}</a></p>
                         <hr>
                         @can('show', $user)
                             <table class="table">
@@ -59,13 +59,13 @@
                                 <tbody>
                                     <tr>
                                         <th scope="row">FTP</th>
-                                        <td>{{ Auth::user()->group->ftp_username }}</td>
-                                        <td><code>{{ Auth::user()->group->ftp_password }}</code></td>
+                                        <td>{{ $user->group->ftp_username }}</td>
+                                        <td><code>{{ $user->group->ftp_password }}</code></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Database</th>
-                                        <td>{{ Auth::user()->group->db_username }}</td>
-                                        <td><code>{{ Auth::user()->group->db_password }}</code></td>
+                                        <td>{{ $user->group->db_username }}</td>
+                                        <td><code>{{ $user->group->db_password }}</code></td>
                                     </tr>
                                 </tbody>
                             </table>
