@@ -19,7 +19,11 @@
                     <tr>
                         <th scope="row">{{ $user->id }}</th>
                         <td><a href="{{ route('users.show', [$user]) }}">{{ $user->name }}</a></td>
-                        <td><a href="{{ $user->group->domain_name }}">{{ $user->group->name }}</a></td>
+                        @if($user->group)
+                            <td><a href="{{ $user->group->domain_name }}">{{ $user->group->name }}</a></td>
+                        @else
+                            <td><a href="#">-</a></td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>

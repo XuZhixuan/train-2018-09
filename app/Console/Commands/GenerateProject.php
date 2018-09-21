@@ -70,7 +70,7 @@ class GenerateProject extends Command
      */
     public function make_ftp_user(Group $group)
     {
-        system("(echo $group->ftp_password; echo $group->ftp_password)" . ' | pure-pw useradd ' . $group->name . ' -u web-root -d ' . '/www/' . $group->name);
+        system("(echo $group->ftp_password; echo $group->ftp_password)" . ' | pure-pw useradd ' . $group->ftp_username . ' -u web-root -d ' . '/www/' . $group->name);
     }
 
     /**
@@ -81,10 +81,10 @@ class GenerateProject extends Command
     {
         $connect = mysqli_connect('localhost', env('DB_ROOT_USERNAME'), env('DB_ROOT_PASSWORD'));
         $queries = [
-            "CREATE USER '$group->name'@'localhost' IDENTIFIED BY '$group->db_password';",
-            "GRANT USAGE ON *.* TO '$group->name'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;",
-            "CREATE DATABASE IF NOT EXISTS `$group->name`;",
-            "GRANT ALL PRIVILEGES ON `$group->name`.* TO '$group->name'@'localhost';",
+            "CREATE USER '$group->db_username'@'localhost' IDENTIFIED BY '$group->db_password';",
+            "GRANT USAGE ON *.* TO '$group->db_username'@'localhost' REQUIRE NONE WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;",
+            "CREATE DATABASE IF NOT EXISTS `$group->db_username`;",
+            "GRANT ALL PRIVILEGES ON `$group->db_username`.* TO '$group->db_username'@'localhost';",
         ];
         foreach ($queries as $query)
         {

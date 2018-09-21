@@ -40,6 +40,10 @@
                 <div class="panel-body">
                     @if(Auth::check() && Auth::user()->group)
                         <h4><strong>小组名</strong></h4>
+                        <span class="pull-right">
+                            <i @if(Auth::user()->group->status) class="status-active" @else class="status-inactive" @endif></i>
+                            @if(Auth::user()->group->status) Enabled @else Disabled @endif
+                        </span>
                         <hr>
                         <p><a href="{{ Auth::user()->group->domain_name }}">{{ Auth::user()->group->name }}</a></p>
                         <hr>
@@ -56,12 +60,12 @@
                                     <tr>
                                         <th scope="row">FTP</th>
                                         <td>{{ Auth::user()->group->ftp_username }}</td>
-                                        <td>{{ Auth::user()->group->ftp_password }}</td>
+                                        <td><code>{{ Auth::user()->group->ftp_password }}</code></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Database</th>
                                         <td>{{ Auth::user()->group->db_username }}</td>
-                                        <td>{{ Auth::user()->group->db_password }}</td>
+                                        <td><code>{{ Auth::user()->group->db_password }}</code></td>
                                     </tr>
                                 </tbody>
                             </table>

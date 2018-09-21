@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('shared._error')
     <div class="panel panel-default">
         <div class="panel-heading">
             <h5>创建小组</h5>
@@ -10,7 +11,7 @@
                 {{csrf_field()}}
                 <div class="form-group">
                     <label for="name">小组名称：</label>
-                    <input class="form-control" type="text" name="name" placeholder="仅支持英文">
+                    <input class="form-control" type="text" name="name" placeholder="仅支持英文" value="{{ old('name') }}">
                 </div>
                 <div class="form-group">
                     <label for="member_1">成员1：</label>
@@ -22,7 +23,9 @@
                     <label for="member_2">成员2：</label>
                     <select class="form-control" name="member_2" id="member_2">
                         @foreach($users as $user)
-                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @if(!$user->group && $user->id != Auth::id())
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>

@@ -60,3 +60,27 @@ body {
     }
   }
 }
+
+/* Group Status */
+.users-show-page {
+  i {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    border-radius: 16px;
+    vertical-align: middle;
+    margin-top: -1px;
+    background-repeat: no-repeat;
+    background-image: url("https://g.alicdn.com/aliyun/ecs2/2.33.46/styles/images/ecs-icons.png");
+  }
+
+  .status-active {
+    color: #090;
+    background-position: -61px -4px;
+  }
+
+  .status-inactive {
+    color: #ffad00;
+    background-position: -61px -52px;
+  }
+}

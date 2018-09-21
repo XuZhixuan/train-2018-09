@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('shared._error')
     <div class="panel panel-default">
         <div class="panel-heading">
             <h5>更改个人信息</h5>
@@ -11,7 +12,7 @@
                 {{ method_field('PUT') }}
                 <div class="form-group">
                     <label for="" class="avatar-label">用户头像</label>
-                    <input type="file" name="avatar">
+                    <input class="form-control-file" type="file" name="avatar">
                     <br>
                     <img src="{{ $user->avatar }}" class="thumbnail img-responsive" width="200px">
                 </div>

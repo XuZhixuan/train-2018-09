@@ -16,7 +16,7 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->boolean('status');
+            $table->boolean('status')->default(false);
             $table->string('domain_name');
             $table->string('ftp_username');
             $table->string('ftp_password');

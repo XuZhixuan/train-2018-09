@@ -48,11 +48,15 @@ class GroupsController extends Controller
         if (Auth::user()->group) {
             return redirect()->intended('/')->with('message','您已加入一个小组');
         }
+        $another = User::find($request->member_2);
+        if ($another->group) {
+            return redirect()->intended('/')->with('message','选择的人已加入一个小组');
+        }
         $group = Group::create([
             'name' => $request->name
         ]);
         Auth::user()->update(['group_id' => $group->id]);
-        User::find($request->member_2)->update(['group_id' => $group->id]);
+        $another->update(['group_id' => $group->id]);
         return redirect()->route('users.show',[Auth::user()])->with('success', '小组创建成功！');
     }
 

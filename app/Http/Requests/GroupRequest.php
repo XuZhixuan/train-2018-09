@@ -25,6 +25,14 @@ class GroupRequest extends FormRequest
     {
         return [
             'name' => 'required|alpha_num',
+            'member_2' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'member_2.required' => '成员不能为空',
         ];
     }
 }
