@@ -82,8 +82,8 @@ class OAuthLoginController extends LoginController
                     'name' => $data['name'],
                     'username' => $data['username'],
                     'email' => $data['email'],
-		    'avatar' => 'avatars/default.jpg',
-		    'role' => 'user',
+                    'avatar' => 'avatars/default.jpg',
+                    'role' => 'user',
                     'password' => '*',
                 ]);
             }
