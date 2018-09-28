@@ -53,7 +53,12 @@ class GroupsController extends Controller
             return redirect()->intended('/')->with('message','选择的人已加入一个小组');
         }
         $group = Group::create([
-            'name' => $request->name
+            'name' => $request->name,
+            'domain_name' => 'http://' . $request->name . '.eeyes.xyz',
+            'db_username' => 'db_' . $request->name,
+            'db_password' => encrypt(generate_password(16)),
+            'ftp_username' => 'ftp_' . $request->name,
+            'ftp_password' => encrypt(generate_password(16)),
         ]);
         Auth::user()->update(['group_id' => $group->id]);
         $another->update(['group_id' => $group->id]);

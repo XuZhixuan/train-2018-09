@@ -79,11 +79,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(Auth::user()->group->users as $user)
+                                    @foreach($user->group->users as $u)
                                         <tr>
-                                            <th scope="row">{{ $user->id }}</th>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->department->name }}</td>
+                                            <th scope="row">{{ $u->id }}</th>
+                                            <td>{{ $u->name }}</td>
+                                            <td>{{ $u->department->name or '-'}}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
